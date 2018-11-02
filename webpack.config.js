@@ -1,17 +1,18 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: {
-    kosmocss: './src/index.js',
-  },
+  entry: './src/index.js',
   output: {
-    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: 'http://localhost:8080/',
+    filename: 'bundle.js',
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+    port: 3000,
+    publicPath: 'http://localhost:3000/dist/',
   },
   module: {
     rules: [
@@ -80,10 +81,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({}),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-    }),
+    new MiniCssExtractPlugin({ filename: 'kosmo.css' }),
   ],
 };
